@@ -414,4 +414,56 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  /* ------------------------------------------------------------------------
+     8. MOBILE MENU DRAWER SYSTEM (Interactive Toggle and Close-on-click)
+     ------------------------------------------------------------------------ */
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const navMenu = document.querySelector('.nav-menu');
+  const navLinksList = document.querySelectorAll('.nav-link');
+
+  if (mobileToggle && navMenu) {
+    mobileToggle.addEventListener('click', () => {
+      navMenu.classList.toggle('open');
+      mobileToggle.classList.toggle('active');
+      
+      // Select SVG lines inside toggle hamburger
+      const lineMid = mobileToggle.querySelector('.line-mid');
+      const lineTop = mobileToggle.querySelector('.line-top');
+      const lineBot = mobileToggle.querySelector('.line-bot');
+      
+      if (navMenu.classList.contains('open')) {
+        // Transition hamburger lines into a sleek glass 'X' close symbol
+        if (lineMid) lineMid.style.opacity = '0';
+        if (lineTop) {
+          lineTop.style.transform = 'translateY(6px) rotate(45deg)';
+          lineTop.style.transformOrigin = 'center';
+        }
+        if (lineBot) {
+          lineBot.style.transform = 'translateY(-6px) rotate(-45deg)';
+          lineBot.style.transformOrigin = 'center';
+        }
+      } else {
+        // Transition back to hamburger menu
+        if (lineMid) lineMid.style.opacity = '1';
+        if (lineTop) lineTop.style.transform = 'none';
+        if (lineBot) lineBot.style.transform = 'none';
+      }
+    });
+
+    // Automatically close the overlay drawer when a menu item is tapped
+    navLinksList.forEach(link => {
+      link.addEventListener('click', () => {
+        navMenu.classList.remove('open');
+        mobileToggle.classList.remove('active');
+        
+        const lineMid = mobileToggle.querySelector('.line-mid');
+        const lineTop = mobileToggle.querySelector('.line-top');
+        const lineBot = mobileToggle.querySelector('.line-bot');
+        if (lineMid) lineMid.style.opacity = '1';
+        if (lineTop) lineTop.style.transform = 'none';
+        if (lineBot) lineBot.style.transform = 'none';
+      });
+    });
+  }
+
 });
