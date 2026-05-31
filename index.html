@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sankhadip Maity | Creative Engineer & Software Developer</title>
+  
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Portfolio of Sankhadip Maity - Creative Engineer, Data Engineer & Software Developer based in Kolkata. Gained experience with AWS cloud engineering and Zscaler cybersecurity.">
+  <meta name="keywords" content="Sankhadip Maity, Data Engineer, Software Developer, Cloud Engineer, AWS, Zscaler, Cybersecurity, Kolkata, Portfolio">
+  <meta name="author" content="Sankhadip Maity">
+  
+  <!-- Stylesheets -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Interactive Background System -->
+  <canvas id="particle-canvas" aria-hidden="true"></canvas>
+  <div class="cyber-grid" aria-hidden="true"></div>
+  
+  <!-- Ambient Aurora Glowing Backdrops -->
+  <div class="aurora-blob blob-1" aria-hidden="true"></div>
+  <div class="aurora-blob blob-2" aria-hidden="true"></div>
+  <div class="aurora-blob blob-3" aria-hidden="true"></div>
+
+  <!-- Header Section -->
+  <header class="header" id="navbar">
+    <div class="container nav-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+      <a href="#home" class="logo-link" aria-label="Go to Home page" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
+        <img src="avatar.jpg" alt="Sankhadip Maity" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent-cyan); object-fit: cover; box-shadow: var(--glow-cyan);">
+        <span class="logo-text" style="font-size: 1.4rem;">Sankhadip.</span>
+      </a>
+      
+      <nav aria-label="Main Navigation">
+        <ul class="nav-menu">
+          <li><a href="#home" class="nav-link active" id="nav-home">Home</a></li>
+          <li><a href="#about" class="nav-link" id="nav-about">About</a></li>
+          <li><a href="#experience" class="nav-link" id="nav-experience">Experience</a></li>
+          <li><a href="#skills" class="nav-link" id="nav-skills">Skills</a></li>
+          <li><a href="#certifications" class="nav-link" id="nav-certifications">Credentials</a></li>
+          <li><a href="#contact" class="nav-link" id="nav-contact">Contact</a></li>
+        </ul>
+      </nav>
+      
+      <div class="nav-actions">
+        <!-- LinkedIn Link -->
+        <a href="https://www.linkedin.com/in/sankhadip22/" target="_blank" rel="noopener noreferrer" class="theme-toggle-btn" aria-label="LinkedIn Profile" style="text-decoration: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        
+        <!-- GitHub Link -->
+        <a href="https://github.com/sankhadip22" target="_blank" rel="noopener noreferrer" class="theme-toggle-btn" aria-label="GitHub Profile" style="text-decoration: none;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;" aria-hidden="true">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+
+        <!-- Theme Toggle Switch -->
+        <button class="theme-toggle-btn" id="theme-toggle" aria-label="Toggle Light/Dark Theme">
+          <!-- Sun Icon (Dark Mode active) -->
+          <svg id="sun-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="5"></circle>
+            <line x1="12" y1="1" x2="12" y2="3"></line>
+            <line x1="12" y1="21" x2="12" y2="23"></line>
+            <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+            <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+            <line x1="1" y1="12" x2="3" y2="12"></line>
+            <line x1="21" y1="12" x2="23" y2="12"></line>
+            <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+            <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+          </svg>
+          <!-- Moon Icon (Light Mode active) -->
+          <svg id="moon-icon" viewBox="0 0 24 24" style="display: none;" aria-hidden="true">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+          </svg>
+        </button>
+        
+        <a href="#contact" class="btn btn-secondary" style="padding: 0.6rem 1.4rem; font-size: 0.9rem;" id="nav-cta">Let's Talk</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="home">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-subtitle">Engineering the Future</div>
+        <h1 class="hero-title">
+          Hi, I am <br>
+          <span class="hero-gradient-text">Sankhadip Maity</span>
+        </h1>
+        
+        <!-- Interactive Tagline Carousel Container -->
+        <div class="hero-taglines">
+          <span class="typewriter-text" id="typewriter">Creative Engineer</span>
+        </div>
+        
+        <p class="hero-description">
+          A passionate Computer Science & Engineering student specializing in cloud architectures, secure data pipelines, and intelligent software engineering. Combining strict technical accuracy with fluid, creative design.
+        </p>
+        
+        <div class="hero-buttons">
+          <a href="#experience" class="btn btn-primary" id="hero-btn-work">View Experience</a>
+          <a href="#contact" class="btn btn-secondary" id="hero-btn-contact">Get in Touch</a>
+        </div>
+      </div>
+      
+      <div class="hero-visual">
+        <div class="hero-card-glow" aria-hidden="true"></div>
+        
+        <!-- Interactive 3D Hover Profile Card -->
+        <div class="profile-card">
+          <div class="profile-card-header">
+            <div class="avatar-placeholder" aria-label="Sankhadip Maity Profile Photo">
+              <img src="avatar.jpg" alt="Sankhadip Maity" style="width: 100%; height: 100%; object-fit: cover; object-position: center 15%; border-radius: 20px;">
+              <span class="active-badge-pill">✦ Active</span>
+            </div>
+            <h2 class="profile-name">Sankhadip Maity</h2>
+            <div class="profile-title">Creative Engineer</div>
+          </div>
+          
+          <ul class="profile-meta-list">
+            <li class="profile-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+              <span>sankhadipmaity.in@gmail.com</span>
+            </li>
+            <li class="profile-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+              <span>+91 - 7318681400</span>
+            </li>
+            <li class="profile-meta-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+              <span>Kolkata, West Bengal</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="section reveal" id="about">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Identity</span>
+        <h2 class="section-title">About Me</h2>
+        <p class="section-desc">A deep dive into my academic path, core principles, and the personal interests that keep my mind active and creative.</p>
+      </div>
+      
+      <div class="about-grid">
+        <div class="about-main">
+          <div class="about-bio">
+            <p>
+              I am a **Computer Science & Engineering** student currently pursuing my Bachelor's degree at **Hooghly Engineering & Technology College** (2024 - 2028). My focus lies at the intersection of robust data systems, cloud automation, and innovative software engineering.
+            </p>
+            <p>
+              Whether establishing secure data orchestration workflows using AWS technologies, mastering zero-trust security guidelines, or leading development teams during nationwide hackathons, I approach every challenge with strategic planning and thorough precision.
+            </p>
+          </div>
+          
+          <div class="about-stats">
+            <div class="stat-box">
+              <div class="stat-num">2028</div>
+              <div class="stat-label">Graduation Year</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-num">4+</div>
+              <div class="stat-label">Global Certifications</div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="about-sidebar">
+          <!-- Languages Panel -->
+          <div class="interests-panel" style="margin-bottom: 2rem;">
+            <h3 class="interests-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;" aria-hidden="true">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              Communication Languages
+            </h3>
+            <div class="interests-list">
+              <div class="interest-tag">🇬🇧 English</div>
+              <div class="interest-tag">🇮🇳 Bengali (Native)</div>
+              <div class="interest-tag">🇮🇳 Hindi</div>
+            </div>
+          </div>
+          
+          <!-- Personal Interests Panel -->
+          <div class="interests-panel">
+            <h3 class="interests-title">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 20px; height: 20px;" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                <line x1="9" y1="9" x2="9.01" y2="9"></line>
+                <line x1="15" y1="9" x2="15.01" y2="9"></line>
+              </svg>
+              Beyond Engineering
+            </h3>
+            <div class="interests-list">
+              <div class="interest-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <rect x="2" y="2" width="20" height="8" rx="2.18" ry="2.18"></rect>
+                  <rect x="2" y="14" width="20" height="8" rx="2.18" ry="2.18"></rect>
+                  <path d="M6 10v4"></path>
+                  <path d="M18 10v4"></path>
+                </svg>
+                Acting & Theatre
+              </div>
+              <div class="interest-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="9" cy="7" r="4"></circle>
+                  <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                  <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                </svg>
+                Team Management
+              </div>
+              <div class="interest-tag">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <path d="M6 12A6 6 0 0 1 18 12"></path>
+                  <path d="M12 6A6 6 0 0 1 12 18"></path>
+                </svg>
+                Playing Cricket
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Work Experience Section -->
+  <section class="section reveal" id="experience">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Career Milestones</span>
+        <h2 class="section-title">Work Experience</h2>
+        <p class="section-desc">A timeline tracking professional roles, technical internships, and team management initiatives.</p>
+      </div>
+      
+      <div class="timeline-container">
+        <!-- Experience Item 1 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-bullet" aria-hidden="true"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">2025</span>
+            <h3 class="timeline-role">AWS Virtual Data Engineer Intern</h3>
+            <div class="timeline-company">Amazon Web Services (Virtual Internship)</div>
+            <ul class="timeline-bullets">
+              <li>Acquired hands-on experience in cloud data engineering workflows, container data management, and scalable ETL systems.</li>
+              <li>Architected and assessed scalable data solutions using Amazon S3, Glue, and Redshift platforms.</li>
+              <li>Enhanced Python programming proficiency, automated ingestion pipelines, and validated database optimizations.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Experience Item 2 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-bullet" aria-hidden="true"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">2026</span>
+            <h3 class="timeline-role">Cybersecurity Trainee</h3>
+            <div class="timeline-company">Zscaler - Fundamentals of Cybersecurity (EDU-102)</div>
+            <ul class="timeline-bullets">
+              <li>Acquired robust foundation in cloud security architectures, private application networking, and zero-trust guidelines.</li>
+              <li>Explored automated traffic filtering, boundary policy models, and analyzed network telemetry indicators.</li>
+              <li>Strengthened technical threat intelligence profiling and systems audit methods.</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- Experience Item 3 -->
+        <div class="timeline-item reveal">
+          <div class="timeline-bullet" aria-hidden="true"></div>
+          <div class="timeline-card">
+            <span class="timeline-date">2025</span>
+            <h3 class="timeline-role">Data Manager & Team Handling</h3>
+            <div class="timeline-company">Smart India Hackathon (Phase - I)</div>
+            <ul class="timeline-bullets">
+              <li>Directs end-to-end strategic timeline scoping and resource delegation for a high-concurrency bus tracking architecture.</li>
+              <li>Orchestrates geo-spatial telemetry datasets (GPS data tracking) for real-time logistics analytics.</li>
+              <li>Oversaw continuous developer feedback cycles and enhanced cross-departmental coordination metrics.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Dashboard Section -->
+  <section class="section reveal" id="skills">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Competencies</span>
+        <h2 class="section-title">Technical Skills</h2>
+        <p class="section-desc">My primary technologies, methodologies, and framework competencies organized by operational categories.</p>
+      </div>
+      
+      <div class="skills-container">
+        <div class="skills-info-card">
+          <h3 class="skills-info-title">The Engineering Toolkit</h3>
+          <p class="skills-info-desc">
+            Equipped with a solid foundation in programming paradigms, modern cloud services, secure deployment metrics, and data processing workflows. I bridge the gap between back-end pipelines and creative project management.
+          </p>
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <span style="color: var(--accent-cyan);">✓</span>
+              <span>Advanced Data Engineering & Pipe Architectures</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <span style="color: var(--accent-cyan);">✓</span>
+              <span>Secure Systems Integration & Policy Compliance</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.8rem;">
+              <span style="color: var(--accent-cyan);">✓</span>
+              <span>Agile Development & Leadership Scopes</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="skills-grid">
+          <!-- Skill 1 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Advanced</span>
+            </div>
+            <h3 class="skill-name">Python Programming</h3>
+            <p class="skill-desc">Core data handling, analytics processing scripting, structural designs, and pipeline automations.</p>
+          </div>
+          
+          <!-- Skill 2 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="2.18" ry="2.18"></rect>
+                  <line x1="7" y1="2" x2="7" y2="22"></line>
+                  <line x1="17" y1="2" x2="17" y2="22"></line>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Intermediate</span>
+            </div>
+            <h3 class="skill-name">C Development</h3>
+            <p class="skill-desc">Memory layout patterns, hardware constraints diagnostics, algorithm modeling, and data structure arrays.</p>
+          </div>
+          
+          <!-- Skill 3 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
+                  <path d="M2 17l10 5 10-5"></path>
+                  <path d="M2 12l10 5 10-5"></path>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Specialist</span>
+            </div>
+            <h3 class="skill-name">Data Engineering</h3>
+            <p class="skill-desc">Telemetry data ingestion design, relational patterns mapping, and multi-stage ETL architectures.</p>
+          </div>
+          
+          <!-- Skill 4 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                  <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Specialist</span>
+            </div>
+            <h3 class="skill-name">Cybersecurity</h3>
+            <p class="skill-desc">Zero Trust Security parameters, telemetry tracking, and secure web application policy integration.</p>
+          </div>
+          
+          <!-- Skill 5 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                  <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Expert</span>
+            </div>
+            <h3 class="skill-name">Project Management</h3>
+            <p class="skill-desc">Team sprint alignment, scoping milestones, data manager roles, and hackathon workflow strategies.</p>
+          </div>
+          
+          <!-- Skill 6 -->
+          <div class="skill-card">
+            <div class="skill-card-header">
+              <div class="skill-icon-wrap" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="18" r="3"></circle>
+                  <circle cx="6" cy="6" r="3"></circle>
+                  <circle cx="6" cy="18" r="3"></circle>
+                  <path d="M18 15V9a4 4 0 0 0-4-4H9"></path>
+                  <path d="M8 15h6a4 4 0 0 0 4-4V6"></path>
+                </svg>
+              </div>
+              <span class="skill-level-badge">Advanced</span>
+            </div>
+            <h3 class="skill-name">Workflow Strategy</h3>
+            <p class="skill-desc">Continuous feedback mechanics, structural workflow systems, and organizational agility schemas.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Certifications Grid Section -->
+  <section class="section reveal" id="certifications">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Validation</span>
+        <h2 class="section-title">Certifications & Awards</h2>
+        <p class="section-desc">Recognitions and technical credentials awarded by academic bodies and industrial networks.</p>
+      </div>
+      
+      <div class="certs-grid">
+        <!-- Cert 1 -->
+        <div class="cert-card aws">
+          <div>
+            <div class="cert-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"></path>
+              </svg>
+            </div>
+            <h3 class="cert-title">AWS Data Engineer</h3>
+            <p class="cert-issuer">Amazon Web Services Academy</p>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">2025</span>
+        </div>
+        
+        <!-- Cert 2 -->
+        <div class="cert-card zscaler">
+          <div>
+            <div class="cert-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+              </svg>
+            </div>
+            <h3 class="cert-title">Zscaler Cybersecurity</h3>
+            <p class="cert-issuer">Fundamentals of Cybersecurity (EDU-102)</p>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">2026</span>
+        </div>
+        
+        <!-- Cert 3 -->
+        <div class="cert-card sih">
+          <div>
+            <div class="cert-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="cert-title">Smart India Hackathon</h3>
+            <p class="cert-issuer">Phase-I Team Selection Winner</p>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">2025</span>
+        </div>
+        
+        <!-- Cert 4 -->
+        <div class="cert-card nptel">
+          <div>
+            <div class="cert-badge" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width: 22px; height: 22px;">
+                <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+                <path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"></path>
+              </svg>
+            </div>
+            <h3 class="cert-title">NPTEL Business Ethics</h3>
+            <p class="cert-issuer">National Programme on Technology Enhanced Learning</p>
+          </div>
+          <span style="font-size: 0.8rem; color: var(--text-muted);">2025</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="section reveal" id="contact">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tag">Let's Connect</span>
+        <h2 class="section-title">Get in Touch</h2>
+        <p class="section-desc">Have a question or looking to build secure, scalable cloud architectures together? Send a line!</p>
+      </div>
+      
+      <div class="contact-grid">
+        <div class="contact-info">
+          <!-- Card Phone -->
+          <div class="contact-card">
+            <div class="contact-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div class="contact-details">
+              <div class="contact-label">Telephone</div>
+              <a href="tel:+917318681400" class="contact-value">+91 7318681400</a>
+            </div>
+            <button class="copy-btn" data-clipboard="+917318681400" aria-label="Copy phone number to clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Card Email -->
+          <div class="contact-card">
+            <div class="contact-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="contact-details">
+              <div class="contact-label">Email Address</div>
+              <a href="mailto:sankhadipmaity.in@gmail.com" class="contact-value">sankhadipmaity.in@gmail.com</a>
+            </div>
+            <button class="copy-btn" data-clipboard="sankhadipmaity.in@gmail.com" aria-label="Copy email address to clipboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+              </svg>
+            </button>
+          </div>
+          
+          <!-- Card Location -->
+          <div class="contact-card">
+            <div class="contact-icon-wrap" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="contact-details">
+              <div class="contact-label">Current Base</div>
+              <div class="contact-value" style="font-size: 1.1rem; font-weight:600;">Kolkata, West Bengal</div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Interactive Messaging Form -->
+        <div class="contact-form-panel">
+          <form id="contact-form" action="https://api.web3forms.com/submit" method="POST" aria-label="Message Form">
+            <!-- Place your Web3Forms Access Key here -->
+            <input type="hidden" name="access_key" value="57aa8c0c-4c34-4e97-bd84-59af0e9ae5e8">
+            <div class="form-group-row">
+              <div class="form-group">
+                <label for="form-name" class="form-label">Full Name</label>
+                <input type="text" id="form-name" name="name" class="form-input" placeholder="Your Name" required>
+              </div>
+              <div class="form-group">
+                <label for="form-email" class="form-label">Email Address</label>
+                <input type="email" id="form-email" name="email" class="form-input" placeholder="name@domain.com" required>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-subject" class="form-label">Subject</label>
+              <input type="text" id="form-subject" name="subject" class="form-input" placeholder="Project, Hiring, Collaboration..." required>
+            </div>
+            
+            <div class="form-group">
+              <label for="form-message" class="form-label">Your Message</label>
+              <textarea id="form-message" name="message" class="form-input" placeholder="Tell me about your idea..." required></textarea>
+            </div>
+            
+            <button type="submit" class="btn btn-primary" style="width: 100%; border-radius: 12px;" id="form-submit-btn">Send Secure Message</button>
+            <div class="form-status-msg" id="form-status" aria-live="polite"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer class="footer">
+    <div class="container footer-container">
+      <div class="footer-copy">
+        &copy; 2026 Sankhadip Maity. All rights reserved. Created with absolute precision and creativity.
+      </div>
+      
+      <div class="footer-links">
+        <!-- LinkedIn Link -->
+        <a href="https://www.linkedin.com/in/sankhadip22/" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="LinkedIn Profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px;">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+            <rect x="2" y="9" width="4" height="12"></rect>
+            <circle cx="4" cy="4" r="2"></circle>
+          </svg>
+        </a>
+        <!-- GitHub Link -->
+        <a href="https://github.com/sankhadip22" target="_blank" rel="noopener noreferrer" class="footer-social-link" aria-label="GitHub Profile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="width: 20px; height: 20px;">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+        </a>
+        <a href="mailto:sankhadipmaity.in@gmail.com" class="footer-social-link" aria-label="Send email directly">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+        <a href="tel:+917318681400" class="footer-social-link" aria-label="Call telephone directly">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="script.js"></script>
+</body>
+</html>
