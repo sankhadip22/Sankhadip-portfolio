@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ------------------------------------------------------------------------
-     5. INTERSECTION OBSERVER FOR FADE-IN REVEALS
+     5. INTERSECTION OBSERVER FOR FADE-IN REVEALS (Mobile-Optimized Threshold)
      ------------------------------------------------------------------------ */
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
@@ -305,8 +305,8 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   }, {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px'
+    threshold: 0.05, // Trigger when at least 5% of the element is visible (safe for tall sections on phones)
+    rootMargin: '0px 0px -15px 0px'
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
