@@ -989,6 +989,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+
 /* --- Contact Section --- */
 .contact-grid {
   display: grid;
@@ -1388,7 +1389,7 @@ textarea.form-input {
     margin-top: 2rem;
   }
   
-  .about-grid, .skills-container, .contact-grid {
+  .about-grid, .skills-container, .contact-grid, .resume-grid {
     grid-template-columns: 1fr;
     gap: 4rem;
   }
@@ -1620,6 +1621,22 @@ textarea.form-input {
   .nav-actions a[aria-label="GitHub Profile"] {
     display: none !important;
   }
+
+  .resume-block-card {
+    padding: 1.5rem;
+  }
+  
+  .resume-item-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.5rem;
+  }
+  
+  .resume-download-btn {
+    padding: 1rem 1.8rem;
+    font-size: 0.95rem;
+    width: 100%;
+  }
 }
 
 /* ==========================================================================
@@ -1667,12 +1684,12 @@ textarea.form-input {
 }
 
 /* 2. Premium Gloss Glare Card reflection Effect */
-.profile-card, .timeline-card, .skill-card, .cert-card, .contact-card, .interests-panel, .skills-info-card, .contact-form-panel, .stat-box {
+.profile-card, .timeline-card, .skill-card, .cert-card, .contact-card, .interests-panel, .skills-info-card, .contact-form-panel, .stat-box, .resume-block-card {
   position: relative;
   overflow: hidden;
 }
 
-.profile-card::before, .timeline-card::before, .skill-card::before, .cert-card::before, .contact-card::before, .interests-panel::before, .skills-info-card::before, .contact-form-panel::before, .stat-box::before {
+.profile-card::before, .timeline-card::before, .skill-card::before, .cert-card::before, .contact-card::before, .interests-panel::before, .skills-info-card::before, .contact-form-panel::before, .stat-box::before, .resume-block-card::before {
   content: '';
   position: absolute;
   top: 0;
@@ -1691,7 +1708,7 @@ textarea.form-input {
   pointer-events: none;
 }
 
-.profile-card:hover::before, .timeline-card:hover::before, .skill-card:hover::before, .cert-card:hover::before, .contact-card:hover::before, .interests-panel:hover::before, .skills-info-card:hover::before, .contact-form-panel:hover::before, .stat-box:hover::before {
+.profile-card:hover::before, .timeline-card:hover::before, .skill-card:hover::before, .cert-card:hover::before, .contact-card:hover::before, .interests-panel:hover::before, .skills-info-card:hover::before, .contact-form-panel:hover::before, .stat-box:hover::before, .resume-block-card:hover::before {
   left: 150%;
 }
 
@@ -1734,4 +1751,172 @@ textarea.form-input {
   0% { transform: translate(0, 0) scale(1.1) rotate(180deg); }
   50% { transform: translate(-80px, 50px) scale(0.85) rotate(90deg); }
   100% { transform: translate(40px, -60px) scale(1.05) rotate(0deg); }
+}
+
+/* ==========================================================================
+   HIGH-END CYBER PRELOADER SCREEN
+   ========================================================================== */
+#preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #030308;
+  background: radial-gradient(circle at center, #0a071d 0%, #030308 100%);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.8s cubic-bezier(0.85, 0, 0.15, 1), opacity 0.8s ease;
+  overflow: hidden;
+}
+
+#preloader.fade-out {
+  transform: translateY(-100%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loader-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 10;
+}
+
+/* Concentric Spinning Rings */
+.cyber-spinner-wrap {
+  width: 140px;
+  height: 140px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.cyber-spinner {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid transparent;
+}
+
+.cyber-spinner.ring-1 {
+  width: 100%;
+  height: 100%;
+  border-top-color: var(--accent-cyan);
+  border-bottom-color: var(--accent-cyan);
+  animation: spin-clockwise 2s linear infinite;
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.2);
+}
+
+.cyber-spinner.ring-2 {
+  width: 80%;
+  height: 80%;
+  border-left-color: var(--accent-violet);
+  border-right-color: var(--accent-violet);
+  animation: spin-counter-clockwise 1.5s linear infinite;
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.2);
+}
+
+.cyber-spinner.ring-3 {
+  width: 60%;
+  height: 60%;
+  border-top-color: var(--accent-gold);
+  border-bottom-color: var(--accent-gold);
+  animation: spin-clockwise 1s linear infinite;
+  box-shadow: 0 0 20px rgba(245, 158, 11, 0.2);
+}
+
+.loader-logo {
+  position: absolute;
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid rgba(0, 242, 254, 0.4);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.3);
+  animation: pulse-glow 2s ease-in-out infinite;
+  background: #030308;
+}
+
+.loader-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+/* Status logs and percentage */
+.loader-status-group {
+  width: 320px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.loader-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  color: var(--text-primary);
+  text-transform: uppercase;
+}
+
+.loader-log {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  color: var(--accent-cyan);
+  min-height: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.8;
+}
+
+.loader-progress-bar-wrap {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 99px;
+  overflow: hidden;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.02);
+}
+
+.loader-progress-bar {
+  width: 0%;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-cyan), var(--accent-violet));
+  border-radius: 99px;
+  transition: width 0.1s ease;
+  box-shadow: 0 0 8px var(--accent-cyan);
+}
+
+.loader-percentage {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  font-family: 'Outfit', sans-serif;
+}
+
+/* Keyframe Animations */
+@keyframes spin-clockwise {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes spin-counter-clockwise {
+  0% { transform: rotate(360deg); }
+  100% { transform: rotate(0deg); }
+}
+
+@keyframes pulse-glow {
+  0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4)); }
+  50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.8)); }
 }

@@ -11,9 +11,34 @@
   <meta name="author" content="Sankhadip Maity">
   
   <!-- Stylesheets -->
-  <link rel="stylesheet" href="style.css?v=1.6">
+  <link rel="stylesheet" href="style.css?v=1.8">
 </head>
 <body>
+
+  <!-- High-End Cyber Preloader Screen -->
+  <div id="preloader" role="dialog" aria-modal="true" aria-label="System Initializing">
+    <div class="loader-content">
+      <!-- Glow Concentric Cyber Rings -->
+      <div class="cyber-spinner-wrap">
+        <div class="cyber-spinner ring-1"></div>
+        <div class="cyber-spinner ring-2"></div>
+        <div class="cyber-spinner ring-3"></div>
+        <div class="loader-logo">
+          <img src="avatar.jpg" alt="Sankhadip Maity" class="loader-avatar">
+        </div>
+      </div>
+      
+      <!-- Tech Status Logs & Numerical Counter -->
+      <div class="loader-status-group">
+        <div class="loader-title">SYSTEM INITIALIZATION</div>
+        <div class="loader-log" id="preloader-log">ACQUIRING INTERFACE DATA...</div>
+        <div class="loader-progress-bar-wrap">
+          <div class="loader-progress-bar" id="preloader-bar"></div>
+        </div>
+        <div class="loader-percentage" id="preloader-percent">0%</div>
+      </div>
+    </div>
+  </div>
 
   <!-- Interactive Background System -->
   <canvas id="particle-canvas" aria-hidden="true"></canvas>
@@ -503,6 +528,7 @@
       </div>
     </div>
   </section>
+
 
   <!-- Contact Section -->
   <section class="section reveal" id="contact">

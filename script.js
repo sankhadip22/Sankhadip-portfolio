@@ -316,10 +316,13 @@ document.addEventListener('DOMContentLoaded', () => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('revealed');
+      } else {
+        // Remove class when scrolled out of view to re-trigger animations repeatedly
+        entry.target.classList.remove('revealed');
       }
     });
   }, {
-    threshold: 0.05, // Trigger when at least 5% of the element is visible (safe for tall sections on phones)
+    threshold: 0.05, // Trigger when at least 5% of the element is visible
     rootMargin: '0px 0px -15px 0px'
   });
 
@@ -486,6 +489,62 @@ document.addEventListener('DOMContentLoaded', () => {
   const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
   if (isMobileDevice) {
     document.body.classList.add('is-phone');
+  }
+
+
+  /* ------------------------------------------------------------------------
+     10. HIGH-END CYBER PRELOADER LOGIC
+     ------------------------------------------------------------------------ */
+  const preloader = document.getElementById('preloader');
+  const preloaderPercent = document.getElementById('preloader-percent');
+  const preloaderBar = document.getElementById('preloader-bar');
+  const preloaderLog = document.getElementById('preloader-log');
+
+  if (preloader) {
+    const logs = [
+      "ACQUIRING INTERFACE DATA...",
+      "ESTABLISHING SECURITY SHIELD...",
+      "LOADING SYSTEM CORE MODULES...",
+      "PARSING STYLESHEET ARRAYS...",
+      "COMPILING PARTICLE DYNAMICS...",
+      "INTERFACE STATUS: SECURED"
+    ];
+
+    let progress = 0;
+    let logIndex = 0;
+
+    function updatePreloader() {
+      // Fast, smooth loading simulation with organic random jumps
+      const increment = Math.floor(Math.random() * 8) + 3;
+      progress = Math.min(progress + increment, 100);
+
+      if (preloaderPercent) preloaderPercent.textContent = `${progress}%`;
+      if (preloaderBar) preloaderBar.style.width = `${progress}%`;
+
+      // Cycle logs based on progress thresholds
+      const currentLogIndex = Math.floor((progress / 100) * (logs.length - 1));
+      if (currentLogIndex !== logIndex && preloaderLog) {
+        logIndex = currentLogIndex;
+        preloaderLog.textContent = logs[logIndex];
+      }
+
+      if (progress < 100) {
+        setTimeout(updatePreloader, Math.random() * 60 + 20);
+      } else {
+        // Complete! Brief delay for premium feel, then slide up preloader screen
+        setTimeout(() => {
+          preloader.classList.add('fade-out');
+          
+          // Re-initialize particles backdrops once screen is clear for perfect fluidity
+          if (typeof window.initParticlesBackground === 'function') {
+            window.initParticlesBackground();
+          }
+        }, 600);
+      }
+    }
+
+    // Begin loading tick slightly after DOM render
+    setTimeout(updatePreloader, 150);
   }
 
 });
