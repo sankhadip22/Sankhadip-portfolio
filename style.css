@@ -1920,3 +1920,92 @@ textarea.form-input {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 8px rgba(0, 242, 254, 0.4)); }
   50% { transform: scale(1.08); filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.8)); }
 }
+
+/* ==========================================================================
+   HIGH-END CYBER PRELOADER GATE STYLING
+   ========================================================================== */
+.loader-gate {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  position: relative;
+  z-index: 20;
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.loader-gate.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+  pointer-events: none;
+}
+
+.gate-logo-wrap {
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 2px solid var(--accent-cyan);
+  box-shadow: var(--glow-cyan);
+  margin-bottom: 0.5rem;
+}
+
+.gate-avatar {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 15%;
+}
+
+.gate-title {
+  font-family: 'Outfit', sans-serif;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  color: var(--text-primary);
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+}
+
+.gate-subtitle {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  color: var(--text-muted);
+}
+
+.gate-btn {
+  padding: 1.2rem 3rem;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  border-radius: 14px;
+  background: var(--btn-grad-cyan);
+  color: #030308;
+  border: none;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(0, 242, 254, 0.25);
+  transition: var(--transition-smooth);
+}
+
+.gate-btn:hover {
+  transform: translateY(-3px) scale(1.02);
+  box-shadow: 0 15px 35px rgba(0, 242, 254, 0.5), var(--glow-cyan);
+}
+
+.loader-audio-indicator {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  margin-top: 0.8rem;
+  animation: audio-indicator-blink 1.5s infinite;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+@keyframes audio-indicator-blink {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}

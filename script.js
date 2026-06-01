@@ -493,7 +493,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
   /* ------------------------------------------------------------------------
-     10. HIGH-END CYBER PRELOADER LOGIC
+     10. HIGH-END CYBER PRELOADER LOGIC & SYNTHESIZED SOUND SYSTEM
+     ------------------------------------------------------------------------ */
+  /* ------------------------------------------------------------------------
+     10. HIGH-END CYBER PRELOADER LOGIC & SYNTHESIZED SOUND SYSTEM (Automatic load)
      ------------------------------------------------------------------------ */
   const preloader = document.getElementById('preloader');
   const preloaderPercent = document.getElementById('preloader-percent');
@@ -501,6 +504,121 @@ document.addEventListener('DOMContentLoaded', () => {
   const preloaderLog = document.getElementById('preloader-log');
 
   if (preloader) {
+    let audioCtx = null;
+    let mainGain = null;
+    let humOsc1 = null;
+    let humOsc2 = null;
+
+    function initAudioSynth() {
+      if (audioCtx) return; // Prevent double initialization
+
+      try {
+        const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContextClass();
+        
+        mainGain = audioCtx.createGain();
+        mainGain.gain.setValueAtTime(0.0, audioCtx.currentTime);
+        mainGain.connect(audioCtx.destination);
+        
+        mainGain.gain.linearRampToValueAtTime(0.8, audioCtx.currentTime + 0.5);
+
+        // Low System Hum filter
+        const lowpass = audioCtx.createBiquadFilter();
+        lowpass.type = "lowpass";
+        lowpass.frequency.setValueAtTime(140, audioCtx.currentTime);
+        lowpass.connect(mainGain);
+
+        // Deep drone oscillator 1 (Triangle wave at 55Hz - G1 note)
+        humOsc1 = audioCtx.createOscillator();
+        humOsc1.type = "triangle";
+        humOsc1.frequency.setValueAtTime(55, audioCtx.currentTime);
+        
+        // Second drone oscillator 2 (Sawtooth wave at 110Hz - G2 note)
+        humOsc2 = audioCtx.createOscillator();
+        humOsc2.type = "sawtooth";
+        humOsc2.frequency.setValueAtTime(110, audioCtx.currentTime);
+
+        const humGain1 = audioCtx.createGain();
+        humGain1.gain.setValueAtTime(0.2, audioCtx.currentTime);
+        
+        const humGain2 = audioCtx.createGain();
+        humGain2.gain.setValueAtTime(0.04, audioCtx.currentTime);
+
+        humOsc1.connect(humGain1).connect(lowpass);
+        humOsc2.connect(humGain2).connect(lowpass);
+
+        humOsc1.start();
+        humOsc2.start();
+      } catch (e) {
+        console.warn("Audio Synthesis failed to initialize: ", e);
+      }
+    }
+
+    // High tech scanning sound trigger (Oscillator sine pitch sweeps)
+    function playChirp(frequency) {
+      if (!audioCtx) return;
+      
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(frequency * 1.5, audioCtx.currentTime);
+        osc.frequency.exponentialRampToValueAtTime(frequency * 0.7, audioCtx.currentTime + 0.08);
+
+        gain.gain.setValueAtTime(0.12, audioCtx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.08);
+
+        osc.connect(gain).connect(mainGain);
+        osc.start();
+        osc.stop(audioCtx.currentTime + 0.09);
+      } catch (e) {}
+    }
+
+    // Access granted sweep arpeggio
+    function playSuccessChime() {
+      if (!audioCtx) return;
+      
+      try {
+        const now = audioCtx.currentTime;
+        const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99]; // C4 - E4 - G4 - C5 - E5 - G5
+        
+        notes.forEach((freq, idx) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          
+          osc.type = "triangle";
+          osc.frequency.setValueAtTime(freq, now + idx * 0.08);
+          
+          gain.gain.setValueAtTime(0, now + idx * 0.08);
+          gain.gain.linearRampToValueAtTime(0.15, now + idx * 0.08 + 0.02);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.08 + 0.4);
+          
+          osc.connect(gain).connect(mainGain);
+          osc.start(now + idx * 0.08);
+          osc.stop(now + idx * 0.08 + 0.45);
+        });
+      } catch (e) {}
+    }
+
+    function stopAllAudio() {
+      if (mainGain && audioCtx) {
+        try {
+          mainGain.gain.setValueAtTime(mainGain.gain.value, audioCtx.currentTime);
+          mainGain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
+          setTimeout(() => {
+            if (humOsc1) humOsc1.stop();
+            if (humOsc2) humOsc2.stop();
+            if (audioCtx) audioCtx.close();
+          }, 600);
+        } catch (e) {}
+      }
+    }
+
+    // Auto-initialize audio synthesizer on load
+    initAudioSynth();
+
+    // Loading HUD Status Sequence
     const logs = [
       "ACQUIRING INTERFACE DATA...",
       "ESTABLISHING SECURITY SHIELD...",
@@ -514,12 +632,15 @@ document.addEventListener('DOMContentLoaded', () => {
     let logIndex = 0;
 
     function updatePreloader() {
-      // Fast, smooth loading simulation with organic random jumps
-      const increment = Math.floor(Math.random() * 8) + 3;
+      // Slower, organic loading simulation to give user time to interact and hear the sounds
+      const increment = Math.floor(Math.random() * 2) + 1;
       progress = Math.min(progress + increment, 100);
 
       if (preloaderPercent) preloaderPercent.textContent = `${progress}%`;
       if (preloaderBar) preloaderBar.style.width = `${progress}%`;
+
+      // Play scanner beeps, pitching upwards slightly as loading completes
+      playChirp(350 + (progress * 6.5));
 
       // Cycle logs based on progress thresholds
       const currentLogIndex = Math.floor((progress / 100) * (logs.length - 1));
@@ -529,22 +650,26 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       if (progress < 100) {
-        setTimeout(updatePreloader, Math.random() * 60 + 20);
+        setTimeout(updatePreloader, Math.random() * 40 + 35);
       } else {
-        // Complete! Brief delay for premium feel, then slide up preloader screen
+        // Complete! Play satisfying success access chord chime
+        playSuccessChime();
+
+        // Brief delay for premium feel, then slide up preloader screen and stop background hum
         setTimeout(() => {
           preloader.classList.add('fade-out');
+          stopAllAudio();
           
           // Re-initialize particles backdrops once screen is clear for perfect fluidity
           if (typeof window.initParticlesBackground === 'function') {
             window.initParticlesBackground();
           }
-        }, 600);
+        }, 800);
       }
     }
 
-    // Begin loading tick slightly after DOM render
-    setTimeout(updatePreloader, 150);
+    // Start loading percentage ticker automatically after 200ms
+    setTimeout(updatePreloader, 200);
   }
 
 });
