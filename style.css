@@ -1304,6 +1304,52 @@ textarea.form-input {
   transform: translateX(0);
 }
 
+/* 6. Dynamic Phone-Specific Spring Scroll Animations */
+.is-phone .reveal {
+  opacity: 0;
+  transform: translateY(25px) scale(0.97);
+  transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1) !important;
+}
+
+.is-phone .reveal.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Custom spring stagger delays for list items and cards on detected phones */
+.is-phone .experience-row .experience-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.97);
+  transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1);
+}
+
+.is-phone .experience-row .experience-card.revealed {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.is-phone .skills-grid .skill-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), border-color 0.4s, box-shadow 0.4s;
+}
+
+.is-phone .reveal.revealed .skills-grid .skill-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.is-phone .certs-grid .cert-card {
+  opacity: 0;
+  transform: translateY(20px) scale(0.96);
+  transition: opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.1), border-color 0.4s, box-shadow 0.4s;
+}
+
+.is-phone .reveal.revealed .certs-grid .cert-card {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
 /* --- Keyframe Animations --- */
 @keyframes float {
   0% { transform: translateY(0px) rotate(0deg); }
@@ -1342,9 +1388,14 @@ textarea.form-input {
     margin-top: 2rem;
   }
   
-  .about-grid, .skills-container, .contact-grid, .experience-row {
+  .about-grid, .skills-container, .contact-grid {
     grid-template-columns: 1fr;
     gap: 4rem;
+  }
+  
+  .experience-row {
+    grid-template-columns: 1fr;
+    gap: 1.8rem;
   }
   
   .skills-info-card {
@@ -1548,6 +1599,26 @@ textarea.form-input {
 
   .logo-text {
     font-size: 1.2rem;
+  }
+
+  .section-header {
+    margin-bottom: 2.5rem;
+  }
+
+  .profile-meta-item {
+    font-size: 0.88rem;
+    gap: 0.8rem;
+  }
+
+  .profile-meta-item svg {
+    width: 16px;
+    height: 16px;
+    flex-shrink: 0;
+  }
+
+  .nav-actions a[aria-label="LinkedIn Profile"],
+  .nav-actions a[aria-label="GitHub Profile"] {
+    display: none !important;
   }
 }
 

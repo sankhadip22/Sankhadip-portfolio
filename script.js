@@ -22,8 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Listen to mouse moving
     window.addEventListener('mousemove', (event) => {
-      mouse.x = event.x;
-      mouse.y = event.y;
+      mouse.x = event.clientX;
+      mouse.y = event.clientY;
     });
 
     // Listen to mouse leaving window
@@ -31,6 +31,20 @@ document.addEventListener('DOMContentLoaded', () => {
       mouse.x = null;
       mouse.y = null;
     });
+
+    // Mobile touch interaction event tracking (pulls particle nodes to finger touch coordinates)
+    window.addEventListener('touchmove', (event) => {
+      if (event.touches.length > 0) {
+        mouse.x = event.touches[0].clientX;
+        mouse.y = event.touches[0].clientY;
+      }
+    }, { passive: true });
+
+    // Clear coordinates when touch ends
+    window.addEventListener('touchend', () => {
+      mouse.x = null;
+      mouse.y = null;
+    }, { passive: true });
 
     // Set canvas sizes
     function setCanvasSize() {
@@ -464,6 +478,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (lineBot) lineBot.style.transform = 'none';
       });
     });
+  }
+
+  /* ------------------------------------------------------------------------
+     9. MOBILE DEVICE DETECTION & BODY CLASS SCHEMAS
+     ------------------------------------------------------------------------ */
+  const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
+  if (isMobileDevice) {
+    document.body.classList.add('is-phone');
   }
 
 });
