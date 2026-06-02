@@ -78,39 +78,72 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Update coordinates
       update() {
-        // Bounce off canvas boundaries
-        if (this.x > canvas.width || this.x < 0) {
-          this.directionX = -this.directionX;
-        }
-        if (this.y > canvas.height || this.y < 0) {
-          this.directionY = -this.directionY;
-        }
-
-        // Check mouse collision coordinates (slight gravity effect pulling towards mouse)
-        if (mouse.x !== null && mouse.y !== null) {
-          let dx = mouse.x - this.x;
-          let dy = mouse.y - this.y;
+        if (window.cyberMode === 'vortex') {
+          // 1. Vortex Spiral Physics Mode
+          let targetX = mouse.x !== null ? mouse.x : canvas.width / 2;
+          let targetY = mouse.y !== null ? mouse.y : canvas.height / 2;
+          let dx = targetX - this.x;
+          let dy = targetY - this.y;
           let distance = Math.sqrt(dx * dx + dy * dy);
-          if (distance < mouse.radius) {
-            // Draw faint connection to mouse
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(mouse.x, mouse.y);
-            ctx.strokeStyle = document.documentElement.getAttribute('data-theme') === 'light' 
-              ? `rgba(2, 132, 199, ${0.1 * (1 - distance / mouse.radius)})`
-              : `rgba(0, 242, 254, ${0.12 * (1 - distance / mouse.radius)})`;
-            ctx.lineWidth = 1;
-            ctx.stroke();
-
-            // Pull node slightly closer to mouse coordinates
-            this.x += dx * 0.015;
-            this.y += dy * 0.015;
+          
+          if (distance > 5) {
+            let angle = Math.atan2(dy, dx);
+            let swirlSpeed = Math.min(3, 120 / distance); // swirl faster near center
+            // Orbiting force + minor pulling force towards mouse
+            this.x += Math.cos(angle + Math.PI / 2) * swirlSpeed + dx * 0.012;
+            this.y += Math.sin(angle + Math.PI / 2) * swirlSpeed + dy * 0.012;
+          } else {
+            // Re-spawn far away if too close to mouse vortex center
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
           }
-        }
+        } else if (window.cyberMode === 'gravity') {
+          // 2. Cosmic Gravity Mode
+          this.directionY += 0.18; // Pull down
+          this.x += this.directionX;
+          this.y += this.directionY;
+          
+          // Bounce off floor
+          if (this.y + this.size >= canvas.height) {
+            this.y = canvas.height - this.size;
+            this.directionY = -this.directionY * 0.82; // Bounce elasticity
+          }
+          // Bounce off side boundaries
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+        } else {
+          // 3. Normal Standard Float Mode
+          if (this.x > canvas.width || this.x < 0) {
+            this.directionX = -this.directionX;
+          }
+          if (this.y > canvas.height || this.y < 0) {
+            this.directionY = -this.directionY;
+          }
 
-        // Apply normal linear floating velocity
-        this.x += this.directionX;
-        this.y += this.directionY;
+          // Mouse gravity pull connection
+          if (mouse.x !== null && mouse.y !== null) {
+            let dx = mouse.x - this.x;
+            let dy = mouse.y - this.y;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            if (distance < mouse.radius) {
+              ctx.beginPath();
+              ctx.moveTo(this.x, this.y);
+              ctx.lineTo(mouse.x, mouse.y);
+              ctx.strokeStyle = document.documentElement.getAttribute('data-theme') === 'light' 
+                ? `rgba(2, 132, 199, ${0.1 * (1 - distance / mouse.radius)})`
+                : `rgba(0, 242, 254, ${0.12 * (1 - distance / mouse.radius)})`;
+              ctx.lineWidth = 1;
+              ctx.stroke();
+
+              this.x += dx * 0.015;
+              this.y += dy * 0.015;
+            }
+          }
+
+          this.x += this.directionX;
+          this.y += this.directionY;
+        }
         
         this.draw();
       }
@@ -670,6 +703,394 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Start loading percentage ticker automatically after 200ms
     setTimeout(updatePreloader, 200);
+  }
+
+  /* ------------------------------------------------------------------------
+     11. RETRO CYBER DECK TERMINAL SYSTEM & SOUND SYNTHESIS ENGINE
+     ------------------------------------------------------------------------ */
+  let cyberAudioCtx = null;
+  let cyberMainGain = null;
+
+  function initCyberAudio() {
+    if (cyberAudioCtx) return;
+    try {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      cyberAudioCtx = new AudioContextClass();
+      cyberMainGain = cyberAudioCtx.createGain();
+      cyberMainGain.gain.setValueAtTime(0.35, cyberAudioCtx.currentTime);
+      cyberMainGain.connect(cyberAudioCtx.destination);
+    } catch (e) {
+      console.warn("Cyber Audio context failed: ", e);
+    }
+  }
+
+  function createNoiseBuffer(ctx) {
+    const bufferSize = ctx.sampleRate * 0.15; // 150ms buffer
+    const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for (let i = 0; i < bufferSize; i++) {
+      data[i] = Math.random() * 2 - 1;
+    }
+    return buffer;
+  }
+
+  // synthesized power up sound (CRT system hum initialization sweep)
+  function playPowerUp() {
+    initCyberAudio();
+    if (!cyberAudioCtx) return;
+    if (cyberAudioCtx.state === 'suspended') {
+      cyberAudioCtx.resume();
+    }
+    
+    const now = cyberAudioCtx.currentTime;
+    const osc1 = cyberAudioCtx.createOscillator();
+    const osc2 = cyberAudioCtx.createOscillator();
+    const oscGain = cyberAudioCtx.createGain();
+    
+    osc1.type = "sawtooth";
+    osc2.type = "triangle";
+    
+    osc1.frequency.setValueAtTime(80, now);
+    osc1.frequency.exponentialRampToValueAtTime(780, now + 0.45);
+    
+    osc2.frequency.setValueAtTime(160, now);
+    osc2.frequency.exponentialRampToValueAtTime(1560, now + 0.45);
+    
+    oscGain.gain.setValueAtTime(0.001, now);
+    oscGain.gain.linearRampToValueAtTime(0.18, now + 0.05);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.48);
+    
+    osc1.connect(oscGain);
+    osc2.connect(oscGain);
+    oscGain.connect(cyberMainGain);
+    
+    osc1.start(now);
+    osc2.start(now);
+    osc1.stop(now + 0.5);
+    osc2.stop(now + 0.5);
+  }
+
+  // synthesized system exit frequency down-sweep
+  function playExit() {
+    if (!cyberAudioCtx) return;
+    const now = cyberAudioCtx.currentTime;
+    const osc = cyberAudioCtx.createOscillator();
+    const oscGain = cyberAudioCtx.createGain();
+    
+    osc.type = "triangle";
+    osc.frequency.setValueAtTime(400, now);
+    osc.frequency.exponentialRampToValueAtTime(45, now + 0.32);
+    
+    oscGain.gain.setValueAtTime(0.15, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+    
+    osc.connect(oscGain).connect(cyberMainGain);
+    osc.start(now);
+    osc.stop(now + 0.4);
+  }
+
+  // synthesized keyboard key tick
+  function playClick() {
+    if (!cyberAudioCtx) return;
+    const now = cyberAudioCtx.currentTime;
+    const osc = cyberAudioCtx.createOscillator();
+    const oscGain = cyberAudioCtx.createGain();
+    
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(1100, now);
+    osc.frequency.exponentialRampToValueAtTime(350, now + 0.025);
+    
+    oscGain.gain.setValueAtTime(0.04, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+    
+    osc.connect(oscGain).connect(cyberMainGain);
+    osc.start(now);
+    osc.stop(now + 0.035);
+  }
+
+  // synthesized bandpass white noise burst for static glitches
+  function playGlitch() {
+    initCyberAudio();
+    if (!cyberAudioCtx) return;
+    const now = cyberAudioCtx.currentTime;
+    
+    const buffer = createNoiseBuffer(cyberAudioCtx);
+    const noiseNode = cyberAudioCtx.createBufferSource();
+    noiseNode.buffer = buffer;
+    
+    const filter = cyberAudioCtx.createBiquadFilter();
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(900, now);
+    filter.Q.setValueAtTime(2.5, now);
+    
+    const noiseGain = cyberAudioCtx.createGain();
+    noiseGain.gain.setValueAtTime(0.2, now);
+    noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
+    
+    noiseNode.connect(filter).connect(noiseGain).connect(cyberMainGain);
+    
+    const osc = cyberAudioCtx.createOscillator();
+    const oscGain = cyberAudioCtx.createGain();
+    osc.type = "sawtooth";
+    osc.frequency.setValueAtTime(140, now);
+    osc.frequency.linearRampToValueAtTime(25, now + 0.22);
+    
+    oscGain.gain.setValueAtTime(0.09, now);
+    oscGain.gain.exponentialRampToValueAtTime(0.001, now + 0.22);
+    
+    osc.connect(oscGain).connect(cyberMainGain);
+    
+    noiseNode.start(now);
+    osc.start(now);
+    
+    noiseNode.stop(now + 0.18);
+    osc.stop(now + 0.23);
+  }
+
+  // Elements
+  const logoLink = document.querySelector('.logo-link');
+  const cyberDeck = document.getElementById('cyber-deck');
+  const deckClose = document.getElementById('deck-close');
+  const deckInput = document.getElementById('deck-input-field');
+  const deckOutput = document.getElementById('deck-output');
+  const matrixCanvas = document.getElementById('matrix-canvas');
+  let matrixInterval = null;
+
+  const contactCardHtml = `
+<p class="term-cyan">=========================================</p>
+<p class="term-green">✦ SANKHADIP MAITY'S DIGITAL CARD ✦</p>
+<p class="term-cyan">=========================================</p>
+<p class="term-muted">STATUS:    <span class="term-green">✦ ACTIVE</span></p>
+<p class="term-muted">ROLE:      Creative Engineer & Dev</p>
+<p class="term-muted">LOCATION:  Kolkata, West Bengal</p>
+<p class="term-cyan">-----------------------------------------</p>
+<p class="term-muted">PHONE:     <a href="tel:+917318681400" target="_blank">+91 7318681400</a></p>
+<p class="term-muted">EMAIL:     <a href="mailto:sankhadipmaity.in@gmail.com" target="_blank">sankhadipmaity.in@gmail.com</a></p>
+<p class="term-muted">LINKEDIN:  <a href="https://www.linkedin.com/in/sankhadip22/" target="_blank">linkedin.com/in/sankhadip22</a></p>
+<p class="term-muted">GITHUB:    <a href="https://github.com/sankhadip22" target="_blank">github.com/sankhadip22</a></p>
+<p class="term-cyan">=========================================</p>
+<p class="term-green">Type "help" to explore interactive core modules.</p>
+<p>&nbsp;</p>
+  `;
+
+  // Start Matrix rain screen filter loop
+  function startMatrixRain() {
+    if (matrixInterval) return;
+    matrixCanvas.style.display = 'block';
+    const mCtx = matrixCanvas.getContext('2d');
+    
+    function resizeMatrixCanvas() {
+      matrixCanvas.width = window.innerWidth;
+      matrixCanvas.height = window.innerHeight;
+    }
+    resizeMatrixCanvas();
+    window.addEventListener('resize', resizeMatrixCanvas);
+    
+    const katakana = "ｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝ1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    const alphabet = katakana.split("");
+    
+    const fontSize = 16;
+    const columns = Math.floor(matrixCanvas.width / fontSize) + 1;
+    const rainDrops = [];
+    
+    for (let x = 0; x < columns; x++) {
+      rainDrops[x] = Math.random() * -100;
+    }
+    
+    function drawRain() {
+      mCtx.fillStyle = 'rgba(3, 3, 8, 0.05)';
+      mCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+      
+      mCtx.fillStyle = '#0F0';
+      mCtx.font = fontSize + 'px monospace';
+      
+      for (let i = 0; i < rainDrops.length; i++) {
+        const text = alphabet[Math.floor(Math.random() * alphabet.length)];
+        mCtx.fillText(text, i * fontSize, rainDrops[i] * fontSize);
+        
+        if (rainDrops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+          rainDrops[i] = 0;
+        }
+        rainDrops[i]++;
+      }
+    }
+    
+    matrixInterval = setInterval(drawRain, 30);
+  }
+
+  function stopMatrixRain() {
+    if (matrixInterval) {
+      clearInterval(matrixInterval);
+      matrixInterval = null;
+      matrixCanvas.style.display = 'none';
+    }
+  }
+
+  // Intercept nav logo clicks and touch gestures
+  if (logoLink && cyberDeck) {
+    logoLink.addEventListener('click', (e) => {
+      e.preventDefault();
+      
+      // Synthesize power sweep
+      playPowerUp();
+      
+      // Force body CRT shake
+      document.body.classList.add('crt-glitch');
+      setTimeout(() => {
+        document.body.classList.remove('crt-glitch');
+      }, 450);
+      
+      // Fade in terminal UI
+      cyberDeck.style.display = 'flex';
+      cyberDeck.style.opacity = '0';
+      cyberDeck.offsetHeight; // force paint reflow
+      cyberDeck.style.opacity = '1';
+      
+      // Autofocus input prompt
+      setTimeout(() => {
+        deckInput.focus();
+      }, 150);
+      
+      // Load startup screen logs and print digital contact card automatically
+      deckOutput.innerHTML = `
+        <p class="term-green">✦ SANKHADIP.OS [Version 1.8.2] SECURE SHELL ACTIVE ✦</p>
+        <p class="term-muted">Type "help" for a list of quantum commands or "exit" to close.</p>
+        <p>&nbsp;</p>
+      ` + contactCardHtml;
+      
+      deckOutput.scrollTop = deckOutput.scrollHeight;
+    });
+  }
+
+  function closeCyberDeck() {
+    if (cyberDeck) {
+      playExit();
+      cyberDeck.style.opacity = '0';
+      setTimeout(() => {
+        cyberDeck.style.display = 'none';
+      }, 400);
+    }
+  }
+
+  if (deckClose) {
+    deckClose.addEventListener('click', closeCyberDeck);
+  }
+
+  // Command prompt text listener
+  if (deckInput) {
+    deckInput.addEventListener('input', () => {
+      playClick(); // metallic tick sound on typing
+    });
+    
+    deckInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        const cmd = deckInput.value.trim().toLowerCase();
+        deckInput.value = '';
+        
+        // Print command echo to output log
+        const pEcho = document.createElement('p');
+        pEcho.innerHTML = `<span class="term-prompt">sankhadip@core:~$</span> ${cmd}`;
+        deckOutput.appendChild(pEcho);
+        
+        executeCommand(cmd);
+        
+        deckOutput.scrollTop = deckOutput.scrollHeight;
+      }
+    });
+  }
+
+  function executeCommand(cmd) {
+    const args = cmd.split(' ');
+    const primaryCmd = args[0];
+    const pResponse = document.createElement('p');
+    
+    switch (primaryCmd) {
+      case 'help':
+        pResponse.innerHTML = `
+<span class="term-green">Available Quantum Commands:</span><br>
+  - <span class="term-cyan">help</span>: Displays list of modules.<br>
+  - <span class="term-cyan">contact</span>: Print contact information card.<br>
+  - <span class="term-cyan">matrix</span>: Toggles green cascading digital rain screen filter.<br>
+  - <span class="term-cyan">vortex</span>: Orbit background particle stars around cursor.<br>
+  - <span class="term-cyan">gravity</span>: Apply downward cosmic pull to particle stars.<br>
+  - <span class="term-cyan">float</span> / <span class="term-cyan">normal</span>: Restore default floating particle dynamics.<br>
+  - <span class="term-cyan">glitch</span>: Trigger retro CRT monitor frequency noise glitch.<br>
+  - <span class="term-cyan">light</span> / <span class="term-cyan">dark</span>: Change theme appearance mode.<br>
+  - <span class="term-cyan">clear</span>: Clear terminal console screen logs.<br>
+  - <span class="term-cyan">exit</span>: Gracefully exit shell overlay.
+        `;
+        break;
+      case 'contact':
+        pResponse.innerHTML = contactCardHtml;
+        break;
+      case 'matrix':
+        if (matrixInterval) {
+          stopMatrixRain();
+          pResponse.innerHTML = `<span class="term-muted">Matrix digital rain loop:</span> <span class="term-error">DISABLED</span>`;
+        } else {
+          startMatrixRain();
+          pResponse.innerHTML = `<span class="term-muted">Matrix digital rain loop:</span> <span class="term-green">ENABLED</span>`;
+        }
+        break;
+      case 'vortex':
+        window.cyberMode = 'vortex';
+        pResponse.innerHTML = `<span class="term-muted">Background dynamic:</span> <span class="term-cyan">VORTEX SPIRAL ACTIVE</span>`;
+        break;
+      case 'gravity':
+        window.cyberMode = 'gravity';
+        pResponse.innerHTML = `<span class="term-muted">Background dynamic:</span> <span class="term-cyan">COSMIC GRAVITY DRIFT ACTIVE</span>`;
+        break;
+      case 'float':
+      case 'normal':
+        window.cyberMode = 'float';
+        pResponse.innerHTML = `<span class="term-muted">Background dynamic:</span> <span class="term-green">DEFAULT FLOAT RESTORED</span>`;
+        break;
+      case 'glitch':
+        playGlitch();
+        document.body.classList.add('crt-glitch');
+        setTimeout(() => {
+          document.body.classList.remove('crt-glitch');
+        }, 450);
+        pResponse.innerHTML = `<span class="term-error">WARNING: SYSTEM STATIC SHIELD BREACHED... SHIELD RESTORED.</span>`;
+        break;
+      case 'light':
+        document.documentElement.setAttribute('data-theme', 'light');
+        localStorage.setItem('sankhadip-theme', 'light');
+        if (typeof window.initParticlesBackground === 'function') {
+          window.initParticlesBackground();
+        }
+        const sun = document.getElementById('sun-icon');
+        const moon = document.getElementById('moon-icon');
+        if (sun && moon) { sun.style.display = 'none'; moon.style.display = 'block'; }
+        pResponse.innerHTML = `<span class="term-muted">Appearance mode:</span> <span class="term-green">LIGHT SPECTRUM ACTIVE</span>`;
+        break;
+      case 'dark':
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('sankhadip-theme', 'dark');
+        if (typeof window.initParticlesBackground === 'function') {
+          window.initParticlesBackground();
+        }
+        const sIcon = document.getElementById('sun-icon');
+        const mIcon = document.getElementById('moon-icon');
+        if (sIcon && mIcon) { sIcon.style.display = 'block'; mIcon.style.display = 'none'; }
+        pResponse.innerHTML = `<span class="term-muted">Appearance mode:</span> <span class="term-green">DARK SPECTRUM ACTIVE</span>`;
+        break;
+      case 'clear':
+        deckOutput.innerHTML = `
+          <p class="term-green">✦ SANKHADIP.OS [Version 1.8.2] SECURE SHELL ACTIVE ✦</p>
+          <p class="term-muted">Type "help" for a list of quantum commands or "exit" to close.</p>
+          <p>&nbsp;</p>
+        `;
+        return;
+      case 'exit':
+        closeCyberDeck();
+        return;
+      case '':
+        return;
+      default:
+        pResponse.innerHTML = `<span class="term-error">Command not found: "${primaryCmd}". Type "help" for instructions.</span>`;
+    }
+    deckOutput.appendChild(pResponse);
   }
 
 });

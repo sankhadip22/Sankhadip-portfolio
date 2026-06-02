@@ -54,7 +54,7 @@
     <div class="container nav-container" style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
       <a href="#home" class="logo-link" aria-label="Go to Home page" style="display: flex; align-items: center; gap: 0.8rem; text-decoration: none;">
         <img src="avatar.jpg" alt="Sankhadip Maity" style="width: 38px; height: 38px; border-radius: 50%; border: 2px solid var(--accent-cyan); object-fit: cover; box-shadow: var(--glow-cyan);">
-        <span class="logo-text" style="font-size: 1.4rem;">Sankhadip.</span>
+        <span class="logo-text">Sankhadip.</span>
       </a>
       
       <nav aria-label="Main Navigation">
@@ -665,6 +665,37 @@
       </div>
     </div>
   </footer>
+
+  <!-- Secret Cyber Terminal Overlay (Easter Egg) -->
+  <div id="cyber-deck" class="cyber-deck-overlay" aria-hidden="true" style="display: none;">
+    <div class="deck-window">
+      <!-- Terminal Header -->
+      <div class="deck-header">
+        <div class="deck-controls">
+          <span class="deck-dot red" id="deck-close" aria-label="Close Terminal" role="button" tabindex="0"></span>
+          <span class="deck-dot yellow"></span>
+          <span class="deck-dot green"></span>
+        </div>
+        <div class="deck-title">Sankhadip.OS v1.8 - SECURE TERMINAL</div>
+      </div>
+      
+      <!-- Terminal Body -->
+      <div class="deck-body">
+        <div class="deck-terminal-output" id="deck-output">
+          <p class="term-green">✦ SANKHADIP.OS [Version 1.8.2] SECURE SHELL ACTIVE ✦</p>
+          <p class="term-muted">Type "help" for a list of quantum commands or "exit" to close.</p>
+          <p>&nbsp;</p>
+        </div>
+        <div class="deck-terminal-input-row">
+          <span class="term-prompt">sankhadip@core:~$</span>
+          <input type="text" id="deck-input-field" class="deck-input" autocomplete="off" spellcheck="false" aria-label="Terminal Input">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Matrix Digital Code Rain Background Canvas -->
+  <canvas id="matrix-canvas" aria-hidden="true" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -2; pointer-events: none; opacity: 0.15;"></canvas>
 
   <!-- Scripts -->
   <script src="script.js"></script>
