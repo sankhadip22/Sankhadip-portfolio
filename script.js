@@ -365,12 +365,40 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ------------------------------------------------------------------------
      6. INTERACTIVE COPY-TO-CLIPBOARD WITH MICRO-FEEDBACK
      ------------------------------------------------------------------------ */
+  function copyToClipboardFallback(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      return navigator.clipboard.writeText(text);
+    } else {
+      return new Promise((resolve, reject) => {
+        try {
+          const textArea = document.createElement("textarea");
+          textArea.value = text;
+          textArea.style.top = "0";
+          textArea.style.left = "0";
+          textArea.style.position = "fixed";
+          document.body.appendChild(textArea);
+          textArea.focus();
+          textArea.select();
+          const successful = document.execCommand('copy');
+          document.body.removeChild(textArea);
+          if (successful) {
+            resolve();
+          } else {
+            reject(new Error("Copy command failed"));
+          }
+        } catch (err) {
+          reject(err);
+        }
+      });
+    }
+  }
+
   const copyBtns = document.querySelectorAll('.copy-btn');
   copyBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       const textToCopy = btn.getAttribute('data-clipboard');
       
-      navigator.clipboard.writeText(textToCopy).then(() => {
+      copyToClipboardFallback(textToCopy).then(() => {
         // Micro-feedback UI switch: change icon to green success checkmark
         const originalSVG = btn.innerHTML;
         btn.innerHTML = `

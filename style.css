@@ -78,6 +78,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
+  overflow-x: hidden;
 }
 
 body {
@@ -1789,8 +1790,8 @@ textarea.form-input {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
   background: #030308;
   background: radial-gradient(circle at center, #0a071d 0%, #030308 100%);
   z-index: 99999;
@@ -2046,8 +2047,8 @@ textarea.form-input {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
+  right: 0;
+  bottom: 0;
   background: rgba(3, 3, 8, 0.7);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -2057,6 +2058,7 @@ textarea.form-input {
   align-items: center;
   padding: 1.5rem;
   transition: opacity 0.4s ease;
+  overflow-y: auto;
 }
 
 .deck-window {
@@ -2203,6 +2205,13 @@ textarea.form-input {
 }
 
 @media (max-width: 768px) {
+  .cyber-deck-overlay {
+    align-items: flex-start;
+    padding: 1rem 0.5rem;
+  }
+  .deck-window {
+    margin: auto 0;
+  }
   .deck-body {
     height: 300px;
     padding: 1rem;
